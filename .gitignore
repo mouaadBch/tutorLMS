@@ -1,0 +1,32 @@
+# CodeIgniter specific ignores
+#/application/config/*
+#!/application/config/config.php
+#!/application/config/database.php
+
+# Ignore system files
+#/system/*
+#!/system/core/*
+#!/system/database/*
+#!/system/helpers/*
+#!/system/libraries/*
+
+# Ignore logs and caches
+#/application/logs/*
+#/system/database/DB_cache.php
+#/system/database/DB_query_builder.php
+#/system/database/DB_result.php
+#/system/language/*
+#/system/logs/*
+#/system/third_party/*
+
+# Ignore user uploads or any other user-generated content
+/uploads/
+/2021/
+/2022/
+/2023/
+/image_2023/
+/update_pack/
+/update/
+/backups/
+/.htaccess
+/application/config/database.php

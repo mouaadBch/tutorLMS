@@ -1,0 +1,509 @@
+.row {
+  row-gap: 20px;
+}
+// Detail page sidebar
+.sidebar-2 {
+  background-color: #fff;
+  box-shadow: 0 25px 45px rgb(0 0 0 / 10%);
+  padding: 30px;
+  border-radius: 10px;
+}
+.price-status {
+  gap: 20px;
+}
+// inputs
+.sidebarInputs {
+  gap: 15px;
+  margin: 35px 0 15px;
+}
+.eForm-label {
+  margin-bottom: 6px;
+  @include font(16px, $fw_semi_bold, 22px, $black);
+  &.eForm-label2 {
+    @include font(14px, $fw_medium, 19px, $black);
+  }
+}
+.eForm-control {
+  display: block;
+  width: 100%;
+  padding: 11px 16px;
+  @include font(14px, $fw_medium, 22px, $black);
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #dfdfdf;
+  appearance: none;
+  border-radius: 5px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  &:focus,
+  &:hover {
+    border: 1px solid #dfdfdf;
+  }
+  &::placeholder {
+    @include font(14px, $fw_medium, 22px, #7e7e7e70);
+  }
+  &.eForm-control2 {
+    &::placeholder {
+      @include font(14px, $fw_normal, 19px, #929292);
+    }
+  }
+}
+textarea {
+  &.eForm-control {
+    min-height: 226px !important;
+  }
+}
+// Button
+.rLessonBtn {
+  width: 100% !important;
+  height: 50px;
+  margin-bottom: 30px;
+}
+.tutor {
+  display: flex;
+  justify-content: center;
+  @include font(16px, $fw_semi_bold, 22px, $blue);
+}
+
+// Main Content
+.alms-courseDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.tutorImg {
+  border-radius: 5px;
+  overflow: hidden;
+}
+.tutorAbout {
+  padding: 22px 0 30px;
+  @include font(16px, $fw_normal, 26px, $white1);
+}
+.tutorDetail {
+  li {
+    gap: 10px;
+    padding-bottom: 3px;
+    &:last-child {
+      padding-bottom: 0;
+    }
+    .text {
+      @include font(18px, $fw_medium, 28px, $black);
+    }
+  }
+}
+
+// Reviews
+.reviewHeader {
+  padding-bottom: 40px;
+}
+.almsDetailsTitle {
+  @include font(24px, $fw_semi_bold, 28px, $black);
+}
+.courseReviewBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 124px;
+  height: 39px;
+  background-color: $blue;
+  border-radius: 3px;
+  @include font(14px, $fw_medium, 18px, #fff);
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    color: #fff !important;
+  }
+}
+.reviewsBody {
+  padding-bottom: 40px;
+  .row {
+    row-gap: 24px;
+  }
+}
+.courseReviewItem {
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.reviewContent {
+  @include font(16px, $fw_normal, 26px, $black);
+}
+.reviewAuthor {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  .img {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: $blue;
+  }
+  .content {
+    h4 {
+      @include font(16px, $fw_semi_bold, 26px, $black);
+    }
+    p {
+      @include font(14px, $fw_normal, 25px, $white1);
+    }
+  }
+}
+
+.w-155 {
+  max-width: 155px;
+}
+.allReviewBtn {
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 155px;
+  height: 50px;
+  background-color: $blue;
+  border: 1px solid $blue;
+  border-radius: 5px;
+  @include font(16px, $fw_semi_bold, 28px, #fff);
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    color: #fff !important;
+  }
+}
+
+// Table
+.mt-30 {
+  margin-top: 30px;
+}
+.eTable {
+  font-size: 18px !important;
+  font-weight: $fw_bold !important;
+  color: $black !important;
+  > :not(caption) > * > * {
+    padding: 11px 16px !important;
+    border-bottom-color: #7e7e7e !important;
+    &:first-child {
+      padding-left: 30px !important;
+    }
+  }
+  > :not(:first-child) {
+    border-top: 1px solid #7e7e7e;
+  }
+  tbody {
+    tr {
+      font-size: 16px !important;
+      font-weight: $fw_medium !important;
+      th {
+        font-size: 16px !important;
+        font-weight: $fw_medium !important;
+      }
+      td {
+        min-width: 250px !important;
+      }
+    }
+  }
+  &.table-hover > tbody > tr:hover > * {
+    background-color: #7e7e7e;
+    color: $black;
+  }
+}
+
+.rm_header {
+  padding: 18px 18px 30px 40px;
+  .btn-close {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 10px 20px #00000020;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
+.rm_body {
+  padding: 0px 40px 40px;
+  gap: 20px;
+  @media screen and (max-width: 991px) {
+    padding: 0px 20px 20px;
+  }
+  @media screen and (max-width: 767px) {
+    padding: 0px 5px 20px;
+  }
+  .availabilityContent {
+    max-width: 100%;
+  }
+}
+.reviewModalItem {
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+  padding: 20px;
+  .header {
+    padding-bottom: 16px;
+  }
+}
+.bg-softblue {
+  background-color: $softblue;
+}
+.courseAvailabilityDate {
+  padding: 11px 15px;
+  border-radius: 5px;
+  @include font(16px, $fw_medium, 28px, $blue);
+}
+.mt-40 {
+  margin-top: 40px;
+}
+.availabilityBtn {
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 195px;
+  height: 50px;
+  background-color: $blue;
+  border: 1px solid $blue;
+  border-radius: 5px;
+  @include font(16px, $fw_semi_bold, 28px, #fff);
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    color: #fff !important;
+  }
+}
+
+// Availability
+.availabilityContent {
+  max-width: 769px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.courseArrow {
+  margin-bottom: 30px;
+}
+.couseSliderArrow {
+  width: 111px;
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 35px;
+    height: 45px;
+    border: 1px solid #066ac9;
+    border-radius: 5px;
+    &::after {
+      color: transparent;
+      display: none;
+    }
+    svg {
+      width: 6px;
+      height: 11px;
+      color: $blue;
+    }
+  }
+}
+.availItems {
+  .header,
+  .body {
+    gap: 20px;
+  }
+  .header {
+    border-bottom: 1px solid #dfdfdf;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+  }
+}
+.availOptions {
+  gap: 17px;
+  @media screen and (max-width: 991px) {
+    gap: 10px;
+  }
+  @media screen and (max-width: 767px) {
+    gap: 5px;
+  }
+}
+.availDate {
+  width: 111px;
+  height: 58px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  .weekDay {
+    @include font(16px, $fw_semi_bold, 28px, $white1);
+  }
+  .aDate {
+    @include font(24px, $fw_bold, 28px, $black);
+  }
+}
+.aBox {
+  width: 111px;
+  height: 58px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $softblue;
+  transition: all 0.3s;
+  cursor: pointer;
+  p {
+    @include font(14px, $fw_semi_bold, 28px, $black);
+  }
+  &.tutorFree {
+    &:hover {
+      background-color: $blue;
+      p {
+        color: #fff !important;
+      }
+    }
+  }
+  &.tutorBooked {
+    background-color: #fcebeb;
+    p {
+      color: $red !important;
+    }
+  }
+}
+
+// select
+.eForm-select {
+  ~ .select2-container--default {
+    .select2-selection--multiple,
+    .select2-selection--single {
+      border: 1px solid $seperate;
+      border-radius: 5px;
+      padding-bottom: 0 !important;
+      padding-right: 0 !important;
+      min-height: 45px;
+      &:focus,
+      &:hover {
+        border: 1px solid $seperate;
+      }
+      .select2-selection__choice {
+        background-color: #f1f1f2;
+        border: 0px solid #aaa;
+        border-radius: 13px;
+        margin-left: 8px;
+        padding-left: 0;
+        padding-right: 30px;
+        .select2-selection__choice__remove {
+          border-right: 0px solid transparent;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          font-size: 12px;
+          font-weight: 400;
+          padding: 0px 12px;
+          color: #bce7ff;
+          right: 0;
+          left: auto;
+          &:hover,
+          &:focus {
+            background-color: transparent !important;
+          }
+        }
+        .select2-selection__choice__display {
+          padding-left: 11px;
+          color: #fff;
+          font-size: 12px;
+          padding-right: 10px;
+          position: relative;
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1px;
+            height: 17px;
+            background-color: red;
+          }
+        }
+      }
+    }
+    .select2-selection--single {
+      .select2-selection__rendered {
+        color: $black;
+        line-height: 45px;
+        font-size: 14px;
+        font-weight: 400;
+        padding-left: 16px;
+      }
+      .select2-selection__arrow {
+        height: 40px !important;
+        top: 0 !important;
+        right: 11px !important;
+        b {
+          border-width: 0 !important;
+          background-image: url(../image/arrow-down.svg);
+          width: 12px !important;
+          height: 7px !important;
+          background-repeat: no-repeat;
+          transform: rotate(0deg);
+          transition: all 0.3s;
+        }
+      }
+    }
+    &.select2-container--open {
+      .select2-selection--single {
+        .select2-selection__arrow {
+          top: -2px !important;
+          b {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+    .select2-search--inline {
+      .select2-search__field {
+        margin-left: 16px !important;
+        margin-top: 14px !important;
+        line-height: 1;
+        &:placeholder-shown {
+          font-size: 12px;
+          font-weight: $fw_normal;
+          color: $white1;
+        }
+      }
+    }
+    &.select2-container--focus {
+      .select2-selection--multiple {
+        border: 1px solid $seperate;
+      }
+    }
+  }
+  &.eChoice-multiple-without-remove {
+    ~ .select2-container--default {
+      .select2-selection--multiple {
+        .select2-selection__choice {
+          padding-right: 1px;
+          .select2-selection__choice__remove {
+            display: none;
+          }
+          .select2-selection__choice__display {
+            padding-left: 11px;
+            color: #fff;
+            font-size: 12px;
+            padding-right: 10px;
+            position: relative;
+            &::after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    ~ .select2-container {
+      max-width: 100%;
+    }
+  }
+}
+.select2-container--default .select2-results__option--selected {
+  background-color: #f1f1f2;
+  color: $black;
+}
+.select2-container--default
+  .select2-results__option--highlighted.select2-results__option--selectable {
+  background-color: #f1f1f2;
+  color: $black;
+}

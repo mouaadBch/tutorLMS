@@ -1,0 +1,482 @@
+// Fonts link
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+// Variable
+$body_font: "Poppins", sans-serif;
+$body_font_size: 16px;
+$body_text_color: #656565;
+$body_font_weight: 400;
+
+// variable
+$red: #ec5252;
+$black: #000000;
+$dark: #000000;
+$white1: #7e7e7e;
+$seperate: #dfdfdf;
+$tag: #e5f2ff;
+$blue: #066ac9;
+$softblue: #eff4ff;
+$black2: #69696a;
+
+// Mixins
+@mixin font($a, $b, $c, $d) {
+  font-size: $a;
+  font-weight: $b;
+  line-height: $c;
+  color: $d !important;
+}
+
+// Font Weight
+$fw_light: 300;
+$fw_normal: 400;
+$fw_medium: 500;
+$fw_semi_bold: 600;
+$fw_bold: 700;
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Open Sans", sans-serif;
+  font-size: $body_font_size;
+  font-weight: $body_font_weight;
+  color: $body_text_color;
+  background-color: #fff;
+  line-height: 1.5;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $body_font;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding-left: 0;
+  margin: 0;
+  li {
+    list-style: none;
+  }
+}
+
+.ul-li {
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      display: inline-block;
+    }
+  }
+}
+
+[data-background] {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.3s all ease-in-out;
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+
+
+button {
+  cursor: pointer;
+}
+
+.form-control:focus,
+button:visited,
+button.active,
+button:hover,
+button:focus,
+input:visited,
+input.active,
+input:hover,
+input:focus,
+textarea:hover,
+textarea:focus,
+a:hover,
+a:focus,
+a:visited,
+a.active,
+select,
+select:hover,
+select:focus,
+select:visited {
+  outline: none;
+  box-shadow: none;
+  text-decoration: none;
+  color: inherit;
+}
+// Start Course
+.alms-main {
+  padding: 70px 0 60px;
+}
+.alms-post-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  @media (max-width: 767px) {
+    margin-top: 30px;
+  }
+}
+
+.alms-box-2 {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  row-gap: 20px;
+  background-color: #fff;
+  box-shadow: 0 25px 50px rgb(0 0 0 / 5%);
+  border-radius: 5px;
+  padding: 20px 25px 20px 20px;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+}
+
+.alms-box-img-grid {
+  flex-basis: auto;
+  width: 33.33%;
+  max-width: 270px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  @media (max-width: 767px) {
+    flex-basis: auto;
+    width: 100%;
+  }
+}
+.alms-box-content-grid {
+  flex-basis: auto;
+  width: 66.67%;
+  padding-left: 25px;
+  @media (max-width: 767px) {
+    flex-basis: auto;
+    width: 100%;
+    padding-left: 0;
+  }
+}
+// User
+.alms-post-author {
+  .item-user {
+    a {
+      display: inline-block;
+      @include font(16px, $fw_semi_bold, 28px, $black);
+    }
+  }
+  .item-user2 {
+    margin-right: 33px;
+    a {
+      display: inline-block;
+      @include font(30px, $fw_semi_bold, 28px, $black);
+    }
+  }
+}
+// title
+.alms-post-content {
+  margin: 16px 0 15px;
+  .alms-box-title {
+    @include font(18px, $fw_bold, 28px, $black);
+  }
+}
+// Tag
+.tag-favourite {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+// Item Tag
+.item-tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  background-color: $tag;
+  color: $blue !important;
+  border: 1px solid $tag;
+  border-radius: 5px;
+  padding: 10px 18px;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  transition: all 0.4s ease-in-out;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
+  }
+
+  &:hover {
+    &::before {
+      width: 100%;
+    }
+    color: $blue !important;
+    border: 1px solid $blue;
+  }
+}
+// seperate
+.seperate {
+  margin: 16px 0;
+  border-bottom: 1px solid $seperate;
+}
+.lms-rating-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+// Price
+.alms-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  .alms-offer-price {
+    @include font(22px, $fw_bold, 28px, $black);
+    .price-time {
+      @include font(16px, $fw_medium, 28px, $white1);
+    }
+  }
+}
+// Item Rating
+.item-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  i {
+    font-size: 17px;
+    color: #f8c144;
+  }
+
+  p {
+    @include font(22px, $fw_semi_bold, 34px, $black);
+  }
+  span {
+    @include font(16px, $fw_semi_bold, 34px, $white1);
+  }
+}
+// Cart Button
+.cart-btn {
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 163px;
+  height: 43px;
+  background-color: $red;
+  border: 1px solid $red;
+  border-radius: 5px;
+  @include font(16px, $fw_medium, 28px, #fff);
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    color: #fff !important;
+  }
+}
+// pirce range
+.priceRange {
+  padding-top: 12px;
+}
+.price-input {
+  width: 100%;
+  display: flex;
+  margin-top: 30px;
+  p {
+    font-size: 20px;
+    color: $dark;
+  }
+}
+.price-input .field {
+  display: flex;
+  align-items: center;
+}
+.field input {
+  width: 50px;
+  height: 100%;
+  outline: none;
+  font-size: 19px;
+  border-radius: 5px;
+  text-align: center;
+  border: none;
+  background-color: transparent;
+  appearance: textfield;
+  margin-top: -4px;
+  font-size: 20px;
+  color: $dark;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+}
+.price-input .separator {
+  display: flex;
+  font-size: 20px;
+  color: $dark;
+  align-items: center;
+  justify-content: center;
+}
+.slider {
+  height: 4px;
+  position: relative;
+  background: #eee;
+  border-radius: 10px;
+}
+.slider .progress {
+  height: 100%;
+  left: 25%;
+  right: 25%;
+  position: absolute;
+  border-radius: 5px;
+  background: $red;
+}
+.range-input {
+  position: relative;
+}
+.range-input input {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  top: -4px;
+  background: none;
+  pointer-events: none;
+  appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background: $red;
+  outline: 4px solid $red;
+  pointer-events: auto;
+  appearance: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+// Start Sidebar
+.sidebar {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 15px 40px #00000010;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+// Header
+.lms-sidebarHeader {
+  padding: 20px 25px;
+  background: rgb(236, 82, 82);
+  background: linear-gradient(
+    259deg,
+    rgba(236, 82, 82, 0.4) 0%,
+    rgba(248, 159, 79, 0.4) 51%,
+    rgba(54, 194, 219, 0.4) 100%
+  );
+  .title {
+    @include font(18px, $fw_semi_bold, 28px, $black);
+  }
+}
+// body
+.lms-sidebarBody {
+  padding: 20px 25px 30px;
+}
+.sidebar-content-2 {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+// search
+.sidebar-search {
+  margin-bottom: 4px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  form {
+    position: relative;
+    input {
+      width: 100%;
+      height: 45px;
+      background-color: transparent;
+      border: 1px solid #d4d4d4;
+      padding-left: 46px;
+      border-radius: 6px;
+      box-shadow: none;
+      @include font(15px, $fw_normal, 20px, $white1);
+      &::placeholder {
+        @include font(15px, $fw_normal, 20px, $white1);
+      }
+    }
+    img {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      width: 18px;
+      transform: translateY(-50%);
+    }
+  }
+}
+// title
+.sidebar-title {
+  @include font(18px, $fw_semi_bold, 18px, $black);
+  padding-bottom: 18px;
+}
+// checkbox
+.alms-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  .form-check {
+    margin-bottom: 0;
+    .form-check-input {
+      border: 1px solid #929292;
+      border-radius: 3px;
+      box-shadow: 0 0 0 #00000000;
+      &:checked {
+        background-color: #ec5252;
+        border-color: #ec5252;
+      }
+    }
+  }
+}
+.form-check-content {
+  label {
+    @include font(16px, $fw_normal, 18px, $black2);
+  }
+}
+@import "details";
