@@ -28,9 +28,21 @@ class Super_admin_model extends CI_Model
     {
         $enroled_ebook = $this->db->select('user_id')->group_by('user_id')->get('ebook_payment');
         $nbr_enroled_ebook = $enroled_ebook->num_rows();
-        $enroled_ebook_users = $enroled_ebook->result_array() ?? [];
+        $enroled_ebook_users = $enroled_ebook->result_array();
         $enroled_ebook_user_ids = array_column($enroled_ebook_users, 'user_id');
-        $nbr_enroled_course = $this->db->select('user_id')->where_not_in('user_id', $enroled_ebook_user_ids)->where('expiry_date >=', time() + 86400)->or_where('expiry_date IS NULL')->group_by('user_id')->get('enrol')->num_rows();
+        if (!empty($enroled_ebook_user_ids)) {
+            $nbr_enroled_course = $this->db
+                ->select('user_id')
+                ->where_not_in('user_id', $enroled_ebook_user_ids)
+                ->where('expiry_date >=', time() + 86400)
+                ->or_where('expiry_date IS NULL')
+                ->group_by('user_id')
+                ->get('enrol')
+                ->num_rows();
+        } else {
+            // If $enroled_ebook_user_ids is empty, handle it accordingly
+            $nbr_enroled_course = 0;
+        }
 
         return $nbr_enroled_ebook +  $nbr_enroled_course;
     }
