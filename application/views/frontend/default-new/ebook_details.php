@@ -62,8 +62,13 @@ $user_id = $this->session->userdata('user_id');
                 <?php else: ?>
                     <?php if(($this->db->get_where('ebook_payment', array('user_id' => $this->session->userdata('user_id'), 'ebook_id' => $ebook_details['ebook_id']))->num_rows() > 0) || ($this->db->get_where('ebook', array('user_id' => $this->session->userdata('user_id'), 'ebook_id' => $ebook_details['ebook_id']))->num_rows() > 0)|| (strtolower($this->session->userdata('role')) =="admin")): ?>
                         <a href="<?php echo base_url('addons/ebook/view/'.$ebook_details['ebook_id']) ?>" class="btn btn-primary" type="button"><?php echo site_phrase('View'); ?></a>
-                    <?php else: ?>
-                        <a href="<?php echo base_url('ebook/buy/'.$ebook_details['ebook_id']) ?>" class="btn btn-primary" type="button"><?php echo site_phrase('buy_now'); ?></a>
+                    <?php else: 
+                        if (max_nbr_user()): ?>
+                            <a href="<?php echo base_url('ebook/buy/'.$ebook_details['ebook_id']) ?>" class="btn btn-primary" type="button"><?php echo site_phrase('buy_now'); ?></a>
+                        <?php else: ?>
+                            <a href="#" class="btn btn-secondary" disabled type="button"><?php echo site_phrase('buy_now'); ?></a>
+                            <p class="text-danger">**You cannot register for this ebooks, <br> please contact your administrator to register for this ebooks</p>
+                        <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
