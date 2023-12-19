@@ -212,7 +212,7 @@
                 success: function (res) {
                   meetingConfig.signature = res.result;
                   meetingConfig.sdkKey = CLIENT_ID;
-                  var joinUrl = "<?php echo site_url('addons/liveclass/join/'.$param2.'&course_id='.$param2); ?>?" + testTool.serialize(meetingConfig);
+                  var joinUrl = "<?php echo site_url('addons/liveclass/join/'.$param2.'?course_id='.$param2); ?>&" + testTool.serialize(meetingConfig);
                   window.location.replace(joinUrl);
                 },
               });
