@@ -31,6 +31,7 @@ class Liveclass extends CI_Controller{
 
     // JOIN TO LIVE CLASS
     public function join($course_id = "") {
+        $user_id = $this->session->userdata('user_id');
         // CHECK USER OR ADMIN LOGIN STATUS
         $this->is_logged_in();
 
@@ -40,17 +41,31 @@ class Liveclass extends CI_Controller{
             redirect(site_url('home/my_courses'), 'refresh');
         }
 
-        // CHECK THE COURSE PURCHASE STATUS
-        $this->check_purchase($course_id);
-
         // LOAD LIVE CLASS VIEW
         $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
         $page_data['course_details']      = $course_details;
-        $page_data['instructor_details']  = $this->user_model->get_all_user($course_details['user_id'])->row_array();
+        
         $page_data['live_class_details']  = $this->liveclass_model->get_live_class_details($course_id);
-        $page_data['logged_user_details'] = $this->user_model->get_all_user($this->session->userdata('user_id'))->row_array();
+        $page_data['logged_user_details'] = $this->user_model->get_all_user($user_id)->row_array();
 
-        $this->load->view('lessons/live_class', $page_data);
+
+        //leave_url start
+        if($this->crud_model->is_course_instructor($course_id, $user_id) || $this->session->userdata('admin_login')){
+            if($this->session->userdata('admin_login')){
+                $page_data['leave_url'] = site_url('admin/course_form/course_edit/'.$course_id.'?tab=live-class');
+            }else{
+                $page_data['leave_url'] = site_url('user/course_form/course_edit/'.$course_id.'?tab=live-class');
+            }
+            $page_data['is_host'] = true;
+        }else{
+            $page_data['leave_url'] = site_url('home/lesson/'.slugify($course_details['title']).'/'.$course_id.'?tab=live-class-content');
+            $page_data['is_host'] = false;
+        }
+        //leave_url end
+
+
+
+        $this->load->view('lessons/zoom_live_class', $page_data);
     }
 
     // CHECK USER LOGGID IN OR NOT
@@ -84,6 +99,28 @@ class Liveclass extends CI_Controller{
             return true;
         }else{
             redirect(site_url(), 'refresh');
+        }
+    }
+
+    function settings($param1 = ''){
+        $user_id = $this->session->userdata('user_id');
+        $user_details = $this->user_model->get_all_user($user_id)->row_array();
+
+        if($user_details['is_instructor'] == 1 || $user_details['role_id'] == 1){
+            if($param1 == 'update'){
+                $this->liveclass_model->update_live_class_settings($user_id);
+                $this->session->set_flashdata('flash_message', get_phrase('Zoom settings has been successfully configured'));
+                redirect(site_url('addons/liveclass/settings'), 'refresh');
+            }
+
+
+            $page_data['zoom_live_class_settings'] = $this->db->where('user_id', $user_id)->get('zoom_live_class_settings');
+            $page_data['page_title'] = get_phrase('Zoom live class settings');
+            $page_data['page_name'] = 'zoom_live_class_settings';
+            $this->load->view('backend/index', $page_data);
+        }else{
+            $this->session->set_flashdata('flash_message', get_phrase('Access denied. Please login as an instructor'));
+            redirect(site_url('login'), 'refresh');
         }
     }
 }

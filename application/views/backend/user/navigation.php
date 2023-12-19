@@ -127,7 +127,14 @@ $status_wise_courses = $this->crud_model->get_status_wise_courses();
 				<?php endif; ?>
 			</a>
 		</li>
-
+		<?php if (addon_status('live-class')) : ?>
+			<li class="side-nav-item <?php if ($page_name == 'zoom_live_class_settings') echo 'active'; ?>">
+				<a href="<?php echo site_url('addons/liveclass/settings'); ?>" class="side-nav-link">
+					<i class="mdi mdi-video-vintage"></i>
+					<span><?php echo get_phrase('Zoom live settings'); ?></span>
+				</a>
+			</li>
+		<?php endif; ?>
 		<?php if (get_frontend_settings('instructors_blog_permission') && $this->session->userdata('is_instructor')) : ?>
 			<li class="side-nav-item <?php if ($page_name == 'blog' || $page_name == 'blog_add' || $page_name == 'blog_edit' || $page_name == 'instructors_pending_blog') : ?> active <?php endif; ?>">
 				<a href="javascript: void(0);" class="side-nav-link <?php if ($page_name == 'blog' || $page_name == 'blog_add' || $page_name == 'blog_edit' || $page_name == 'instructors_pending_blog') : ?> active <?php endif; ?>">

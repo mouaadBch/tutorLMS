@@ -530,6 +530,11 @@ $status_with_tikite_pending = $this->db->where('status', 'opened')->get('tickets
 					<li class="<?php if ($page_name == 'frontend_settings') echo 'active'; ?>">
 						<a href="<?php echo site_url('admin/frontend_settings'); ?>"><?php echo get_phrase('website_settings'); ?></a>
 					</li>
+					<?php if (addon_status('live-class')) : ?>
+						<li class="<?php if ($page_name == 'zoom_live_class_settings') echo 'active'; ?>">
+							<a href="<?php echo site_url('addons/liveclass/settings'); ?>"><?php echo get_phrase('Zoom live class settings'); ?></a>
+						</li>
+					<?php endif; ?>
 
 					<!-- <li class="<?php #if ($page_name == 'academy_cloud') echo 'active'; ?>">
 						<a href="<?php #echo site_url('admin/academy_cloud'); ?>"><?php #echo get_phrase('academy_cloud'); ?></a>
