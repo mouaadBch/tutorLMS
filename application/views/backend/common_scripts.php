@@ -18,9 +18,18 @@
   function togglePriceFields(elem) {
     if($("#"+elem).is(':checked')){
       $('.paid-course-stuffs').slideUp();
-    }else
+    }else{
       $('.paid-course-stuffs').slideDown();
     }
+  }
+
+  function toggleSecondaryPrice(elem) {
+    if($("#"+elem).is(':checked')){
+      $('.secondary_price').slideDown();
+    }else{
+      $('.secondary_price').slideUp();
+    }
+  }
 </script>
 
 <?php if ($page_name == 'courses-server-side'): ?>
@@ -152,12 +161,12 @@
     }
   }
 
-  function checkExpiryPeriod(e){
+  function checkExpiryPeriod(e,p=''){
     var expiryPeriod = $(e).val();
     if(expiryPeriod == 'lifetime'){
-        $('#number_of_month').slideUp();
+        $('#number_of_month'+p).slideUp();
     }else{
-        $('#number_of_month').slideDown();
+        $('#number_of_month'+p).slideDown();
     }
   }
 </script>

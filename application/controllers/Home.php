@@ -460,24 +460,52 @@ class Home extends CI_Controller
         if (!$this->session->userdata('cart_items')) {
             $this->session->set_userdata('cart_items', array());
         }
-
+        
+        if (empty($this->session->userdata('secondaryPaymentItems')) || !is_array($this->session->userdata('secondaryPaymentItems'))) {
+            $this->session->set_userdata('secondaryPaymentItems', array());
+        }
+        
         $previous_cart_items = $this->session->userdata('cart_items');
+        
+        $secondaryPaymentItems = $this->session->userdata('secondaryPaymentItems');
+        
         if (in_array($course_id, $previous_cart_items)) {
-            $key = array_search($course_id, $previous_cart_items);
-            unset($previous_cart_items[$key]);
+            if (is_array($secondaryPaymentItems) && in_array($course_id, $secondaryPaymentItems) && $_GET['secondaryPayment'] == 1) {
+                    $key = array_search($course_id, $previous_cart_items);
+                    unset($previous_cart_items[$key]);
 
-            $response['success'] = get_phrase('Item successfully removed from cart');
-            $response['hide'] = '#added_to_cart_btn_'.$identifier.$course_id;
-            $response['show'] = '#add_to_cart_btn_'.$identifier.$course_id;
-            
+                    $key_secondary = array_search($course_id, $secondaryPaymentItems);
+                    unset($secondaryPaymentItems[$key_secondary]);  
+                    $response['success'] = get_phrase('Item successfully removed from cart');
+                    $response['hide'] = '#added_to_cart_btn_'.$identifier.$course_id;
+                    $response['show'] = '#add_to_cart_btn_'.$identifier.$course_id;
+            }else{
+                if ($_GET['secondaryPayment'] == 1) {
+                    array_push($secondaryPaymentItems, $course_id);
+                }else{
+                    $key_secondary = array_search($course_id, $secondaryPaymentItems);
+                    if($key_secondary){
+                        unset($secondaryPaymentItems[$key_secondary]); 
+                    }else{
+                        $key = array_search($course_id, $previous_cart_items);
+                        unset($previous_cart_items[$key]);
+                    }
+                }
+            }
         } else {
             array_push($previous_cart_items, $course_id);
+            $key_secondary = array_search($course_id, $secondaryPaymentItems);
+            if ($_GET['secondaryPayment'] == 1 && $key_secondary === false ) {
+                array_push($secondaryPaymentItems, $course_id);
+            }
 
             $response['success'] = get_phrase('Item successfully added to cart');
             $response['show'] = '#added_to_cart_btn_'.$identifier.$course_id;
             $response['hide'] = '#add_to_cart_btn_'.$identifier.$course_id;
         }
+
         $this->session->set_userdata('cart_items', $previous_cart_items);
+        $this->session->set_userdata('secondaryPaymentItems', $secondaryPaymentItems);
 
 
         //Cart page start
@@ -506,6 +534,10 @@ class Home extends CI_Controller
             $this->session->set_userdata('cart_items', array());
         }
 
+         if (empty($this->session->userdata('secondaryPaymentItems')) || !is_array($this->session->userdata('secondaryPaymentItems'))) {
+            $this->session->set_userdata('secondaryPaymentItems', array());
+        }
+
         if(isset($_GET['gift'])){
             $is_gift = '?gift=yes';
         }else{
@@ -513,13 +545,40 @@ class Home extends CI_Controller
         }
 
         $previous_cart_items = $this->session->userdata('cart_items');
+
+        $secondaryPaymentItems = $this->session->userdata('secondaryPaymentItems');
+        
         if (in_array($course_id, $previous_cart_items)) {
-            // $key = array_search($course_id, $previous_cart_items);
-            // unset($previous_cart_items[$key]);
+            if (is_array($secondaryPaymentItems) && in_array($course_id, $secondaryPaymentItems) && $_GET['secondaryPayment'] == 1) {
+                    /* $key = array_search($course_id, $previous_cart_items);
+                    unset($previous_cart_items[$key]); 
+                    $key_secondary = array_search($course_id, $secondaryPaymentItems);
+                    unset($secondaryPaymentItems[$key_secondary]);*/
+            }else{
+                if ($_GET['secondaryPayment'] == 1) {
+                    array_push($secondaryPaymentItems, $course_id);
+                }else{
+                    $key_secondary = array_search($course_id, $secondaryPaymentItems);
+                    unset($secondaryPaymentItems[$key_secondary]); 
+                    /* if($key_secondary){
+                    }else{
+                        $key = array_search($course_id, $previous_cart_items);
+                        unset($previous_cart_items[$key]);  
+                    } */
+                }
+            }
         } else {
             array_push($previous_cart_items, $course_id);
+            $key_secondary = array_search($course_id, $secondaryPaymentItems);
+            if ($_GET['secondaryPayment'] == 1 && $key_secondary === false ) {
+                array_push($secondaryPaymentItems, $course_id);
+            }
         }
+
+
         $this->session->set_userdata('cart_items', $previous_cart_items);
+        $this->session->set_userdata('secondaryPaymentItems', $secondaryPaymentItems);
+
 
         if($this->session->userdata('user_login')){
             $this->payment_model->configure_course_payment();

@@ -52,7 +52,13 @@
       url: url,
       data: jsonFormate,
       success: function(response) {
-        distributeServerResponse(response);
+        response =JSON.parse(response);
+        /* distributeServerResponse(response); */
+        if(typeof response.redirectTo != "undefined" && response.redirectTo != 0){
+          window.location.href = response.redirectTo; 
+        }else{
+          window.location.reload();
+        }
       }
     });
 

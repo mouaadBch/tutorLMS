@@ -1,8 +1,8 @@
 <?php
 $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 
-$percentage_rev_cours = 0 ;
-if (get_user_role('role_id',$course_details['creator']) != 1) {
+$percentage_rev_cours = 0;
+if (get_user_role('role_id', $course_details['creator']) != 1) {
     $course_creator = $this->user_model->get_all_user($course_details['creator'])->row_array();
     $percentage_rev_cours = $course_creator['percentage_rev_cours'] ?? get_settings('instructor_revenue');
 }
@@ -42,7 +42,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                         <form class="required-form" action="<?php echo site_url('admin/course_actions/edit/' . $course_id); ?>" method="post" enctype="multipart/form-data" autocomplete="off">
                             <div class="scrollable-tab-section" id="basicwizard">
 
-                                <button type="button" class="scrollable-tab-btn-left" ><i class="mdi mdi-arrow-left"></i></button>
+                                <button type="button" class="scrollable-tab-btn-left"><i class="mdi mdi-arrow-left"></i></button>
 
                                 <div class="scrollable-tab">
                                     <ul class="nav nav-pills nav-justified form-wizard-header">
@@ -142,7 +142,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                     </ul>
                                 </div>
 
-                                <button type="button" class="scrollable-tab-btn-right" ><i class="mdi mdi-arrow-right"></i></button>
+                                <button type="button" class="scrollable-tab-btn-right"><i class="mdi mdi-arrow-right"></i></button>
 
                                 <div class="tab-content b-0 mb-0">
                                     <div class="tab-pane" id="curriculum">
@@ -151,10 +151,10 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                             include 'curriculum.php';
                                         elseif ($course_details['course_type'] == 'scorm' && addon_status('scorm_course') == true) :
                                             include 'scorm_curriculum.php';
-                                        elseif($course_details['course_type']== 'h5p' && addon_status('h5p') == true):
-                                            include 'h5p_curriculum.php' ; 
-                                        else:?>
-                                            <?php if ($course_details['course_type'] == 'scorm_course') :?>
+                                        elseif ($course_details['course_type'] == 'h5p' && addon_status('h5p') == true) :
+                                            include 'h5p_curriculum.php';
+                                        else : ?>
+                                            <?php if ($course_details['course_type'] == 'scorm_course') : ?>
                                                 <div class="row justify-content-center">
                                                     <div class="col-md-6">
                                                         <div class="alert alert-warning" role="alert">
@@ -165,7 +165,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                 </div>
                                             <?php endif; ?>
 
-                                            <?php if ($course_details['course_type'] == 'h5p') :?>
+                                            <?php if ($course_details['course_type'] == 'h5p') : ?>
                                                 <div class="row justify-content-center">
                                                     <div class="col-md-6">
                                                         <div class="alert alert-warning" role="alert">
@@ -184,7 +184,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                     <?php if (addon_status('live-class')) : ?>
                                         <?php include 'live_class.php'; ?>
                                     <?php endif; ?>
-                                    
+
                                     <!-- Jitsi live class CODE BASE -->
                                     <?php if (addon_status('jitsi-live-class')) : ?>
                                         <div class="tab-pane" id="jitsi-live-class">
@@ -194,7 +194,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                     <!-- LIVE CLASS CODE BASE -->
 
                                     <!-- ASSIGNMENT CODE BASE -->
-                                    <?php if(addon_status('assignment')): ?>
+                                    <?php if (addon_status('assignment')) : ?>
                                         <div class="tab-pane" id="assignment">
                                             <?php include 'assignment.php'; ?>
                                         </div>
@@ -330,7 +330,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="enable_drip_content"><?php echo get_phrase('enable_drip_content'); ?></label>
                                                     <div class="col-md-10 pt-2">
-                                                        <input type="checkbox" name="enable_drip_content" value="1" id="enable_drip_content" data-switch="primary" <?php if($course_details['enable_drip_content'] == 1) echo 'checked'; ?>>
+                                                        <input type="checkbox" name="enable_drip_content" value="1" id="enable_drip_content" data-switch="primary" <?php if ($course_details['enable_drip_content'] == 1) echo 'checked'; ?>>
                                                         <label for="enable_drip_content" data-on-label="On" data-off-label="Off"></label>
                                                     </div>
                                                 </div>
@@ -339,17 +339,17 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                     <label class="col-md-2 col-form-label pt-1" for="enable_drip_content"><?php echo get_phrase('Updated as a'); ?></label>
                                                     <div class="col-md-10 pt-1">
                                                         <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="status_active" name="status" class="custom-control-input" value="active" <?php echo $course_details['status'] == 'active' ? 'checked':''; ?>>
+                                                            <input type="radio" id="status_active" name="status" class="custom-control-input" value="active" <?php echo $course_details['status'] == 'active' ? 'checked' : ''; ?>>
                                                             <label class="custom-control-label" for="status_active"><?php echo get_phrase('Active course'); ?></label>
                                                         </div>
 
                                                         <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="status_private" name="status" class="custom-control-input" value="private" <?php echo $course_details['status'] == 'private' ? 'checked':''; ?> >
+                                                            <input type="radio" id="status_private" name="status" class="custom-control-input" value="private" <?php echo $course_details['status'] == 'private' ? 'checked' : ''; ?>>
                                                             <label class="custom-control-label" for="status_private"><?php echo get_phrase('Private course'); ?></label>
                                                         </div>
 
                                                         <div class="custom-control custom-radio mb-1">
-                                                            <input type="radio" id="status_upcoming" name="status" class="custom-control-input" value="upcoming" <?php echo $course_details['status'] == 'upcoming' ? 'checked':''; ?> >
+                                                            <input type="radio" id="status_upcoming" name="status" class="custom-control-input" value="upcoming" <?php echo $course_details['status'] == 'upcoming' ? 'checked' : ''; ?>>
                                                             <label class="custom-control-label" for="status_upcoming"><?php echo get_phrase('Upcoming course'); ?></label>
                                                         </div>
                                                     </div>
@@ -390,11 +390,11 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="faq"><?php echo get_phrase('course_faq'); ?></label>
                                                     <div class="col-md-10">
-                                                        <div id = "faq_area">
+                                                        <div id="faq_area">
                                                             <?php $faq_counter = 0; ?>
-                                                            <?php $course_faqs_arr = !empty($course_details['faqs']) ? json_decode($course_details['faqs'], true):[]; ?>
+                                                            <?php $course_faqs_arr = !empty($course_details['faqs']) ? json_decode($course_details['faqs'], true) : []; ?>
                                                             <?php $course_faqs_arr = is_array($course_faqs_arr) ? $course_faqs_arr : array(); ?>
-                                                            <?php foreach($course_faqs_arr as $faq_title => $faq_description): ?>
+                                                            <?php foreach ($course_faqs_arr as $faq_title => $faq_description) : ?>
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
@@ -403,9 +403,9 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                                         </div>
                                                                     </div>
                                                                     <div class="">
-                                                                        <?php if($faq_counter == 0): ?>
+                                                                        <?php if ($faq_counter == 0) : ?>
                                                                             <button type="button" class="btn btn-success btn-sm" name="button" onclick="appendFaq()"> <i class="fa fa-plus"></i> </button>
-                                                                        <?php else: ?>
+                                                                        <?php else : ?>
                                                                             <button type="button" class="btn btn-danger btn-sm" style="margin-top: 0px;" name="button" onclick="removeFaq(this)"> <i class="fa fa-minus"></i> </button>
                                                                         <?php endif; ?>
                                                                     </div>
@@ -413,7 +413,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                                 <?php $faq_counter++; ?>
                                                             <?php endforeach; ?>
 
-                                                            <?php if($faq_counter == 0): ?>
+                                                            <?php if ($faq_counter == 0) : ?>
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
@@ -427,7 +427,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                                 </div>
                                                             <?php endif; ?>
 
-                                                            <div id = "blank_faq_field">
+                                                            <div id="blank_faq_field">
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-grow-1 px-3">
                                                                         <div class="form-group">
@@ -505,7 +505,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            
+
                                                 <div class="form-group row mb-3 pt-2">
                                                     <label class="col-md-2 col-form-label" for="outcomes"><?php echo get_phrase('outcomes'); ?></label>
                                                     <div class="col-md-10">
@@ -587,8 +587,8 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                         <label class="col-md-4 col-form-label" for="price"><?php echo get_phrase('course_price') . ' (' . currency_code_and_symbol() . ')'; ?></label>
                                                         <div class="col-md-8">
                                                             <input type="number" class="form-control" onkeyup="calculateProfPercentage()" id="price" name="price" min="0" placeholder="<?php echo get_phrase('enter_course_course_price'); ?>" value="<?php echo $course_details['price']; ?>">
-                                                            <small class="text-muted" id="prof_one" <?php echo (($course_details['discount_flag'] == 1)? 'style="display: none;"': '') ?>>
-                                                                <?php echo get_phrase('instructor_revenue')."($percentage_rev_cours %)"; ?> : <span id="prof_percentage_one" class="text-danger"></span>
+                                                            <small class="text-muted" id="prof_one" <?php echo (($course_details['discount_flag'] == 1) ? 'style="display: none;"' : '') ?>>
+                                                                <?php echo get_phrase('instructor_revenue') . "($percentage_rev_cours %)"; ?> : <span id="prof_percentage_one" class="text-danger"></span>
                                                             </small>
                                                         </div>
                                                     </div>
@@ -599,8 +599,8 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                                 <input type="checkbox" onclick="checkDiscountFlag()" class="custom-control-input" name="discount_flag" id="discount_flag" value="1" <?php if ($course_details['discount_flag'] == 1) echo 'checked'; ?>>
                                                                 <label class="custom-control-label" for="discount_flag"><?php echo get_phrase('check_if_this_course_has_discount'); ?></label>
                                                             </div>
-                                                            <small class="text-muted" id="prof_tow" <?php echo (($course_details['discount_flag'] == 1)? '': 'style="display: none;"') ?>>
-                                                                <?php echo get_phrase('instructor_revenue')."($percentage_rev_cours %)"; ?> : <span id="prof_percentage_tow" class="text-danger"></span>
+                                                            <small class="text-muted" id="prof_tow" <?php echo (($course_details['discount_flag'] == 1) ? '' : 'style="display: none;"') ?>>
+                                                                <?php echo get_phrase('instructor_revenue') . "($percentage_rev_cours %)"; ?> : <span id="prof_percentage_tow" class="text-danger"></span>
                                                             </small>
                                                         </div>
                                                     </div>
@@ -612,22 +612,76 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
                                                             <small class="text-muted"><?php echo get_phrase('this_course_has'); ?> <span id="discounted_percentage" class="text-danger">0%</span> <?php echo get_phrase('discount'); ?></small>
                                                         </div>
                                                     </div>
+                                                    <?php
+                                                        $secondaryPrice = string_to_json($course_details['secondary_price']);
+                                                    ?>
+                                                    <div class="form-group row mb-3">
+                                                        <div class="offset-md-2 col-md-10">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input" name="addSecondaryPrice" id="addSecondaryPrice" value="1" onclick="toggleSecondaryPrice(this.id)" <?php if ($secondaryPrice['secondary_price'] == 1) echo 'checked'; ?>>
+                                                                <label class="custom-control-label" for="addSecondaryPrice">Add secondary price</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="secondary_price border border-primary p-3" style="display: none;">
+                                                        <div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="price_secondary"><?php echo get_phrase('course_price') . ' (' . currency_code_and_symbol() . ')'; ?></label>
+                                                                <input type="number" class="form-control" id="price_secondary" value="<?= $secondaryPrice['price'] ?>" name="price_secondary" placeholder="<?php echo get_phrase('enter_course_course_price'); ?>" min="0">
+                                                            </div>
+
+                                                            <div class="form-group row mb-3">
+                                                                <div class="offset-md-2 col-md-10">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input" name="discount_flag_secondary" id="discount_flag_secondary" value="1" <?php if ($secondaryPrice['discount_flag'] == 1) echo 'checked'; ?>>
+                                                                        <label class="custom-control-label" for="discount_flag_secondary"><?php echo get_phrase('check_if_this_course_has_discount'); ?></label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class=" mb-3">
+                                                                <label class="form-label" for="discounted_price_secondary"><?php echo get_phrase('discounted_price') . ' (' . currency_code_and_symbol() . ')'; ?></label>
+                                                                <input type="number" class="form-control" name="discounted_price_secondary" value="<?= $secondaryPrice['discounted_price'] ?>" id="discounted_price_secondary" onkeyup="calculateDiscountPercentage(this.value,'_secondary')" min="0">
+                                                                <small class="text-muted"><?php echo get_phrase('this_course_has'); ?> <span id="discounted_percentage_secondary" class="text-danger">0%</span> <?php echo get_phrase('discount'); ?></small>
+                                                            </div>
+                                                            <div class="form-group row mb-3">
+                                                                <label class="col-md-4 col-form-label"><?php echo get_phrase('Expiry period'); ?></label>
+                                                                <div class="col-md-8 pt-2 d-flex">
+                                                                    <div class="custom-control custom-radio mr-2">
+                                                                        <input type="radio" id="lifetime_expiry_period_secondary" name="expiry_period_secondary" class="custom-control-input" value="lifetime" onchange="checkExpiryPeriod(this,'_secondary')" <?php if ($secondaryPrice['expiry_period'] == '') echo 'checked'; ?>>
+                                                                        <label class="custom-control-label" for="lifetime_expiry_period_secondary"><?php echo get_phrase('Lifetime'); ?></label>
+                                                                    </div>
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input type="radio" id="limited_expiry_period_secondary" name="expiry_period_secondary" class="custom-control-input" value="limited_time" onchange="checkExpiryPeriod(this,'_secondary')" <?php if ($secondaryPrice['expiry_period'] != '') echo 'checked'; ?>>
+                                                                        <label class="custom-control-label" for="limited_expiry_period_secondary"><?php echo get_phrase('Limited time'); ?></label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-3" id="number_of_month_secondary" style="<?php if ($secondaryPrice['expiry_period'] == '') echo 'display: none'; ?>">
+                                                                <label class="col-md-2 col-form-label"><?php echo get_phrase('Number of month'); ?></label>
+                                                                <div class="col-md-10">
+                                                                    <input class="form-control" type="number"  value="<?= $secondaryPrice['expiry_period'] ?>" name="number_of_month_secondary" min="1">
+                                                                    <small class="badge badge-light"><?php echo get_phrase('After purchase, students can access the course until your selected time.'); ?></small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <hr>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-4 col-form-label"><?php echo get_phrase('Expiry period'); ?></label>
                                                     <div class="col-md-8 pt-2 d-flex">
                                                         <div class="custom-control custom-radio mr-2">
-                                                            <input type="radio" id="lifetime_expiry_period" name="expiry_period" class="custom-control-input" value="lifetime" onchange="checkExpiryPeriod(this)" <?php if($course_details['expiry_period'] == 0) echo 'checked'; ?>>
+                                                            <input type="radio" id="lifetime_expiry_period" name="expiry_period" class="custom-control-input" value="lifetime" onchange="checkExpiryPeriod(this)" <?php if ($course_details['expiry_period'] == 0) echo 'checked'; ?>>
                                                             <label class="custom-control-label" for="lifetime_expiry_period"><?php echo get_phrase('Lifetime'); ?></label>
                                                         </div>
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" id="limited_expiry_period" name="expiry_period" class="custom-control-input" value="limited_time" onchange="checkExpiryPeriod(this)" <?php if($course_details['expiry_period'] > 0) echo 'checked'; ?>>
+                                                            <input type="radio" id="limited_expiry_period" name="expiry_period" class="custom-control-input" value="limited_time" onchange="checkExpiryPeriod(this)" <?php if ($course_details['expiry_period'] > 0) echo 'checked'; ?>>
                                                             <label class="custom-control-label" for="limited_expiry_period"><?php echo get_phrase('Limited time'); ?></label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row mb-3" id="number_of_month" style="<?php if($course_details['expiry_period'] == '') echo 'display: none'; ?>">
+                                                <div class="form-group row mb-3" id="number_of_month" style="<?php if ($course_details['expiry_period'] == '') echo 'display: none'; ?>">
                                                     <label class="col-md-4 col-form-label"><?php echo get_phrase('Number of month'); ?></label>
                                                     <div class="col-md-8">
                                                         <input class="form-control" type="number" name="number_of_month" min="1" value="<?php echo $course_details['expiry_period']; ?>">
@@ -727,6 +781,7 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
     $(document).ready(function() {
         initSummerNote(['#description']);
         togglePriceFields('is_free_course');
+        toggleSecondaryPrice('addSecondaryPrice');
     });
 </script>
 
@@ -735,24 +790,25 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
     var blank_outcome = jQuery('#blank_outcome_field').html();
     var blank_requirement = jQuery('#blank_requirement_field').html();
     jQuery(document).ready(function() {
-      jQuery('#blank_faq_field').hide();
-      jQuery('#blank_outcome_field').hide();
-      jQuery('#blank_requirement_field').hide();
-      calculatediscounted();
-      calculateProfPercentage();
+        jQuery('#blank_faq_field').hide();
+        jQuery('#blank_outcome_field').hide();
+        jQuery('#blank_requirement_field').hide();
+        calculatediscounted();
+        calculateProfPercentage();
     });
 
     const checkbox = document.getElementById('discount_flag')
-    const percentage = <?php echo $percentage_rev_cours ?> ;
-    
+    const percentage = <?php echo $percentage_rev_cours ?>;
+
     function calculateProfPercentage() {
         var price = jQuery('#price').val();
-        jQuery('#prof_percentage_one').text(((price * percentage ) / 100) +' <?= currency_code_and_symbol() ?>');
+        jQuery('#prof_percentage_one').text(((price * percentage) / 100) + ' <?= currency_code_and_symbol() ?>');
         calculateDiscountPercentage(jQuery('#discounted_price').val())
     }
+
     function calculatediscounted() {
         var discounted_price = jQuery('#discounted_price').val();
-        jQuery('#prof_percentage_tow').text(((discounted_price * percentage ) / 100) +' <?= currency_code_and_symbol() ?>');
+        jQuery('#prof_percentage_tow').text(((discounted_price * percentage) / 100) + ' <?= currency_code_and_symbol() ?>');
     }
 
     function calculateDiscountPercentage(discounted_price) {
@@ -784,24 +840,27 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
     })
 
     function appendFaq() {
-      jQuery('#faq_area').append(blank_faq);
+        jQuery('#faq_area').append(blank_faq);
     }
+
     function removeFaq(faqElem) {
-      jQuery(faqElem).parent().parent().remove();
+        jQuery(faqElem).parent().parent().remove();
     }
 
     function appendOutcome() {
-      jQuery('#outcomes_area').append(blank_outcome);
+        jQuery('#outcomes_area').append(blank_outcome);
     }
+
     function removeOutcome(outcomeElem) {
-      jQuery(outcomeElem).parent().parent().remove();
+        jQuery(outcomeElem).parent().parent().remove();
     }
 
     function appendRequirement() {
-      jQuery('#requirement_area').append(blank_requirement);
+        jQuery('#requirement_area').append(blank_requirement);
     }
+
     function removeRequirement(requirementElem) {
-      jQuery(requirementElem).parent().parent().remove();
+        jQuery(requirementElem).parent().parent().remove();
     }
 
     function ajax_get_sub_category(category_id) {
@@ -852,9 +911,9 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
     });
 
 
-    function student_academic_progress(course_id){
+    function student_academic_progress(course_id) {
         var academicProgressContent = $('#academic_progress').html();
-        if(academicProgressContent == ''){
+        if (academicProgressContent == '') {
             $('.ajax_loader').addClass('start_ajax_loading');
             $.ajax({
                 url: '<?php echo site_url('admin/student_academic_progress/'); ?>' + course_id,
@@ -868,12 +927,12 @@ if (get_user_role('role_id',$course_details['creator']) != 1) {
 
 
     //Show specific tab by passing the tab id when reload browser
-    <?php if(isset($_GET['tab'])): ?>
+    <?php if (isset($_GET['tab'])) : ?>
         $('.ajax_loader').addClass('start_ajax_loading');
-        const tabClickInterval = setInterval(function(){
-            if(!$("a[href$=<?= $_GET['tab']; ?>]").hasClass('active')){
+        const tabClickInterval = setInterval(function() {
+            if (!$("a[href$=<?= $_GET['tab']; ?>]").hasClass('active')) {
                 $("a[href$=<?= $_GET['tab']; ?>]").click();
-            }else{
+            } else {
                 $('.ajax_loader').removeClass('start_ajax_loading');
                 clearInterval(tabClickInterval);
             }

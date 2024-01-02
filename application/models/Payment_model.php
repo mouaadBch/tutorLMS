@@ -21,7 +21,14 @@ class Payment_model extends CI_Model {
 
         //item detail
         foreach ($this->session->userdata('cart_items') as $key => $cart_item):
-            $course_details = $this->crud_model->get_course_by_id($cart_item)->row_array();
+          $course_details = $this->crud_model->get_course_by_id($cart_item)->row_array();
+          $secondary_price = string_to_json($course_details['secondary_price']) ;
+          if ($secondary_price && $secondary_price['secondary_price']==1 && isCoursesSecondaryInSession($course_details['id']) == 1) {
+              $course_details['discount_flag'] = $secondary_price['discount_flag'];
+              $course_details['discounted_price'] = $secondary_price['discounted_price'];
+              $course_details['price'] = $secondary_price['price'];
+          }
+
             $item_details['id'] = $cart_item;
             $item_details['title'] = $course_details['title'];
             $item_details['thumbnail'] = $this->crud_model->get_course_thumbnail_url($course_details['id']);
@@ -392,6 +399,7 @@ class Payment_model extends CI_Model {
           $payment_info = json_decode($payment_info, true);
           $user_id = $payment_info[0];
           $payment_details = $payment_info[1];
+          $secondaryPaymentItems = $payment_info[3];
           // Checking login credential for admin
           $query = $this->db->get_where('users', array('id' => $user_id));
           if ($query->num_rows() > 0) {
@@ -403,6 +411,7 @@ class Payment_model extends CI_Model {
               $this->session->set_userdata('name', $row->first_name . ' ' . $row->last_name);
               $this->session->set_userdata('is_instructor', $row->is_instructor);
               $this->session->set_userdata('user_login', '1');
+              $this->session->set_userdata('secondaryPaymentItems', $secondaryPaymentItems);
           }
 
           if($payment_details['is_instructor_payout_user_id'] == false){

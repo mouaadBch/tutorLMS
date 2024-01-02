@@ -82,6 +82,7 @@ class Offline_payment extends CI_Controller
 				/* code mouaad */
 				$this->session->set_userdata('course_referee', $item['course_referee']);
 				$this->session->set_userdata('course_reffer_id', $item['course_reffer_id']);
+				$this->session->set_userdata('secondaryPaymentItems', json_decode($item['secondaryprice'],true));
 				/* / code mouaad */
 				foreach ($cart_item as $purchased_course) {
 					$already_enrolled = $this->db->get_where('enrol', array('user_id' => $user_id, 'course_id' => $purchased_course))->num_rows();

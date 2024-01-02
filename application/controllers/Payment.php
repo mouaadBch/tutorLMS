@@ -288,7 +288,8 @@ class Payment extends CI_Controller
         $CallbackURL = site_url('payment/cmiCallbackURL');
 
         $coupon_code = $this->session->userdata('applied_coupon');
-        $cmiSessionData = array($user_id, $payment_details, $coupon_code);
+        $secondaryPaymentItems = $this->session->userdata('secondaryPaymentItems');
+        $cmiSessionData = array($user_id, $payment_details, $coupon_code , $secondaryPaymentItems);
         $cmiSessionData = json_encode($cmiSessionData);
         $cmiSessionData = base64_encode($cmiSessionData);
         /* code mouaad */

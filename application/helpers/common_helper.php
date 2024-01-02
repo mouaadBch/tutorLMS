@@ -12,7 +12,7 @@ if (!function_exists('max_nbr_tutor')) {
         $nb_user =  $CI->super_admin_model->get_nbr_user_enroled();
         $nbr_tutor = $CI->super_admin_model->get_nbr_tutor();
 
-        return ($max_tutor == 0) ? $max_user > ($nbr_tutor + $nb_user) :  $max_tutor > $nbr_tutor ;
+        return ($max_tutor == 0) ? $max_user > ($nbr_tutor + $nb_user) :  $max_tutor > $nbr_tutor;
     }
 }
 if (!function_exists('max_nbr_courses')) {
@@ -23,7 +23,7 @@ if (!function_exists('max_nbr_courses')) {
         $max_nombre_courses = $CI->super_admin_model->get_parametre('max_nombre_courses');
         $get_nb_courses = $CI->super_admin_model->get_nb_courses();
 
-        return ($max_nombre_courses == 0)? true : $max_nombre_courses > $get_nb_courses ;
+        return ($max_nombre_courses == 0) ? true : $max_nombre_courses > $get_nb_courses;
     }
 }
 if (!function_exists('max_nbr_user')) {
@@ -34,7 +34,23 @@ if (!function_exists('max_nbr_user')) {
         $max_nombre_user = $CI->super_admin_model->get_parametre('max_nombre_user');
         $nb_user =  $CI->super_admin_model->get_nbr_user_enroled();
 
-        return ($max_nombre_user == 0)? true : $max_nombre_user > $nb_user ;
+        return ($max_nombre_user == 0) ? true : $max_nombre_user > $nb_user;
+    }
+}
+
+if (!function_exists('isCoursesSecondaryPrice')) {
+    function isCoursesSecondaryInSession($id)
+    {
+        $CI    = &get_instance();
+        $CI->load->database();
+        $secondaryPayment = (!empty($CI->session->userdata('secondaryPaymentItems')) && in_array($id, $CI->session->userdata('secondaryPaymentItems'))) ? 1 : 0;
+        return $secondaryPayment;
+    }
+}
+
+if (!function_exists('string_to_json')) {
+    function string_to_json($data){
+        return is_string($data) ? json_decode($data, true) : false;
     }
 }
 

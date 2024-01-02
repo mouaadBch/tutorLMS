@@ -336,6 +336,57 @@
                                                                 <small class="text-muted"><?php echo get_phrase('this_course_has'); ?> <span id="discounted_percentage" class="text-danger">0%</span> <?php echo get_phrase('discount'); ?></small>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group row mb-3">
+                                                            <div class="offset-md-2 col-md-10">
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" name="addSecondaryPrice" id="addSecondaryPrice" value="1" onclick="toggleSecondaryPrice(this.id)">
+                                                                    <label class="custom-control-label" for="addSecondaryPrice">Add secondary price</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="secondary_price border border-primary p-3" style="display: none;">
+                                                            <div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label" for="price_secondary"><?php echo get_phrase('course_price') . ' (' . currency_code_and_symbol() . ')'; ?></label>
+                                                                    <input type="number" class="form-control" id="price_secondary" name="price_secondary" placeholder="<?php echo get_phrase('enter_course_course_price'); ?>" min="0">
+                                                                </div>
+
+                                                                <div class="form-group row mb-3">
+                                                                    <div class="offset-md-2 col-md-10">
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="checkbox" class="custom-control-input" name="discount_flag_secondary" id="discount_flag_secondary" value="1">
+                                                                            <label class="custom-control-label" for="discount_flag_secondary"><?php echo get_phrase('check_if_this_course_has_discount'); ?></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class=" mb-3">
+                                                                    <label class="form-label" for="discounted_price_secondary"><?php echo get_phrase('discounted_price') . ' (' . currency_code_and_symbol() . ')'; ?></label>
+                                                                    <input type="number" class="form-control" name="discounted_price_secondary" id="discounted_price_secondary" onkeyup="calculateDiscountPercentage(this.value,'_secondary')" min="0">
+                                                                    <small class="text-muted"><?php echo get_phrase('this_course_has'); ?> <span id="discounted_percentage_secondary" class="text-danger">0%</span> <?php echo get_phrase('discount'); ?></small>
+                                                                </div>
+                                                                <div class="form-group row mb-3">
+                                                                    <label class="col-md-4 col-form-label"><?php echo get_phrase('Expiry period'); ?></label>
+                                                                    <div class="col-md-8 pt-2 d-flex">
+                                                                        <div class="custom-control custom-radio mr-2">
+                                                                            <input type="radio" id="lifetime_expiry_period_secondary" name="expiry_period_secondary" class="custom-control-input" value="lifetime" onchange="checkExpiryPeriod(this,'_secondary')" checked>
+                                                                            <label class="custom-control-label" for="lifetime_expiry_period_secondary"><?php echo get_phrase('Lifetime'); ?></label>
+                                                                        </div>
+                                                                        <div class="custom-control custom-radio">
+                                                                            <input type="radio" id="limited_expiry_period_secondary" name="expiry_period_secondary" class="custom-control-input" value="limited_time" onchange="checkExpiryPeriod(this,'_secondary')">
+                                                                            <label class="custom-control-label" for="limited_expiry_period_secondary"><?php echo get_phrase('Limited time'); ?></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row mb-3" id="number_of_month_secondary" style="display: none">
+                                                                    <label class="col-md-2 col-form-label"><?php echo get_phrase('Number of month'); ?></label>
+                                                                    <div class="col-md-10">
+                                                                        <input class="form-control" type="number" name="number_of_month_secondary" min="1">
+                                                                        <small class="badge badge-light"><?php echo get_phrase('After purchase, students can access the course until your selected time.'); ?></small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <hr>
                                                     <div class="form-group row mb-3">
@@ -516,17 +567,17 @@
             }
         }
 
-        function calculateDiscountPercentage(discounted_price) {
+        function calculateDiscountPercentage(discounted_price, p = '') {
             if (discounted_price > 0) {
-                var actualPrice = jQuery('#price').val();
+                var actualPrice = jQuery('#price' + p).val();
                 if (actualPrice > 0) {
                     var reducedPrice = actualPrice - discounted_price;
                     var discountedPercentage = (reducedPrice / actualPrice) * 100;
                     if (discountedPercentage > 0) {
-                        jQuery('#discounted_percentage').text(discountedPercentage.toFixed(2) + '%');
+                        jQuery('#discounted_percentage' + p).text(discountedPercentage.toFixed(2) + '%');
 
                     } else {
-                        jQuery('#discounted_percentage').text('<?php echo '0%'; ?>');
+                        jQuery('#discounted_percentage' + p).text('<?php echo '0%'; ?>');
                     }
                 }
             }

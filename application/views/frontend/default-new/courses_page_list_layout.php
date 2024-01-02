@@ -47,15 +47,37 @@
                     <p class="ellipsis-line-2"><?php echo $course['short_description']; ?></p>
                     <div class="courses-price-border">
                         <div class="courses-price">
-                            <div class="courses-price-left">
+                            <div>
+                                <?php $secondary_price = ($course['secondary_price'] !=null )? json_decode($course['secondary_price']??'',true) : 0; ?>
                                 <?php if($course['is_free_course']): ?>
-                                    <h5 class="price-free"><?php echo get_phrase('Free'); ?></h5>
-                                <?php elseif($course['discount_flag']): ?>
-                                    <h5><?php echo currency($course['discounted_price']); ?></h5>
-                                    <p class="mt-1"><del><?php echo currency($course['price']); ?></del></p>
-                                <?php else: ?>
-                                    <h5><?php echo currency($course['price']); ?></h5>
-                                <?php endif; ?>
+                                    <div  class="courses-price-left">
+                                        <h5 class="price-free"><?php echo get_phrase('Free'); ?></h5>
+                                    </div>
+                                <?php else:?>
+                                    <div  class="courses-price-left">
+                                        <?php if($course['discount_flag']):?>
+                                            <h5><?php echo currency($course['discounted_price']); ?></h5>
+                                            <i class="fas fa-info-circle text-secondary" style="font-size: 10px;"  data-bs-toggle="tooltip" data-bs-html="true" title="<?php echo get_phrase('Pay').' '.currency($course['discounted_price']).' '.get_phrase('instead of').' '. currency($course['price']).' '.get_phrase('a limited-time discount!')?>"></i>
+                                        <?php else:?>
+                                            <h5><?php echo currency($course['price']); ?></h5>
+                                        <?php endif;?>
+                                        <h5> / <?php echo ($course['expiry_period'] =='' )? get_phrase('Lifetime') : $course['expiry_period'].' '.get_phrase('months'); ?> </h5>
+                                    </div>
+                                    <?php if($secondary_price && $secondary_price['secondary_price']):?>
+                                        <div  class="courses-price-left">
+                                            <?php if($secondary_price['discounted_price']):?>
+                                                <h5><?php echo currency($secondary_price['discounted_price']); ?></h5>
+                                                <i class="fas fa-info-circle text-secondary" style="font-size: 10px;"  data-bs-toggle="tooltip" data-bs-html="true" title="<?php echo get_phrase('Pay').' '.currency($secondary_price['discounted_price']).' '.get_phrase('instead of').' '.currency($secondary_price['price']).' '.get_phrase('a limited-time discount!')?>"></i>
+                                                <?php else:?>
+                                                    <h5><?php echo currency($secondary_price['price']); ?></h5>
+                                            <?php endif;?>
+                                            <h5> / <?php echo ($secondary_price['expiry_period'] =='' )? get_phrase('Lifetime') : $secondary_price['expiry_period']; ?> </h5>
+                                        </div>
+                                    <?php endif;?>
+                                <?php endif;?>
+
+
+
                             </div>
                             <div class="courses-price-right ">
                                 <p class="me-2"><i class="fa-regular fa-list-alt p-0 text-15px"></i> <?php echo $lessons->num_rows().' '.get_phrase('lessons'); ?></p>

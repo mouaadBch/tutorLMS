@@ -613,6 +613,16 @@ class Crud_model extends CI_Model
         $data['level'] = $this->input->post('level');
         $data['is_free_course'] = $this->input->post('is_free_course');
 
+        /* code Mouaad */
+        $data['secondary_price']=json_encode([
+            'secondary_price'=> $this->input->post('addSecondaryPrice'),
+            'price'=> $this->input->post('price_secondary'),
+            'discount_flag'=> $this->input->post('discount_flag_secondary'),
+            'discounted_price'=> $this->input->post('discounted_price_secondary'),
+            'expiry_period'=> ($this->input->post('expiry_period_secondary')=='lifetime')?'':$this->input->post('number_of_month_secondary'),
+        ]);
+        /* code Mouaad */
+        
         //Course expiry period
         if ($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0) {
             $data['expiry_period'] = $this->input->post('number_of_month');
@@ -802,6 +812,16 @@ class Crud_model extends CI_Model
         $data['category_id'] = $category_details['parent'];
         $data['requirements'] = $requirements;
         $data['is_free_course'] = $this->input->post('is_free_course');
+
+        /* code mouaad */
+        $data['secondary_price']=json_encode([
+            'secondary_price'=> $this->input->post('addSecondaryPrice'),
+            'price'=> $this->input->post('price_secondary'),
+            'discount_flag'=> $this->input->post('discount_flag_secondary'),
+            'discounted_price'=> $this->input->post('discounted_price_secondary'),
+            'expiry_period'=> ($this->input->post('expiry_period_secondary')=='lifetime')?'':$this->input->post('number_of_month_secondary'),
+        ]);
+        /* code mouaad */
 
         //Course expiry period
         if ($this->input->post('expiry_period') == 'limited_time' && is_numeric($this->input->post('number_of_month')) && $this->input->post('number_of_month') > 0) {
@@ -2262,6 +2282,10 @@ class Crud_model extends CI_Model
             $purchased_courses = $this->session->userdata('cart_items');
             foreach ($purchased_courses as $purchased_course) {
                 $course_details = $this->get_course_by_id($purchased_course)->row_array();
+                $secondary_price = string_to_json($course_details['secondary_price']) ;
+                if ( $secondary_price && isCoursesSecondaryInSession($purchased_course)) {
+                        $course_details['expiry_period'] = $secondary_price['expiry_period'];
+                }
                 if ($course_details['expiry_period'] > 0) {
                     $days = $course_details['expiry_period'] * 30;
                     $data['expiry_date'] = strtotime("+" . $days . " days");

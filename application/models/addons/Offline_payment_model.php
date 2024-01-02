@@ -10,14 +10,15 @@ class Offline_payment_model extends CI_Model
 	}
 
 	//Offline checkout User panel
-	public function check_offline_payment_payment($payment_method = "", $item_type = ""){
+	public function check_offline_payment_payment($payment_method = "", $item_type = "")
+	{
 		$payment_details = $this->session->userdata('payment_details');
 		$item_ids = array();
 
 		$file_extension = pathinfo($_FILES['payment_document']['name'], PATHINFO_EXTENSION);
 		if ($file_extension == 'jpg' || $file_extension == 'pdf' || $file_extension == 'txt' || $file_extension == 'png' || $file_extension == 'docx') :
 			if ($payment_details['total_payable_amount'] > 0) :
-				foreach($payment_details['items'] as $item){
+				foreach ($payment_details['items'] as $item) {
 					$item_ids[] = $item['id'];
 				}
 
@@ -34,12 +35,14 @@ class Offline_payment_model extends CI_Model
 				/* code mouaad */
 				$data['course_referee'] = $this->session->userdata('course_referee');
 				$data['course_reffer_id'] = $this->session->userdata('course_reffer_id');
+				$data['secondaryprice'] = json_encode($this->session->userdata('secondaryPaymentItems'));
 				/* code mouaad */
 				$this->db->insert('offline_payment', $data);
 				move_uploaded_file($_FILES['payment_document']['tmp_name'], 'uploads/payment_document/' . $data['document_image']);
 				$this->session->set_userdata('cart_items', array());
-	            $this->session->set_userdata('payment_details', '');
-	            $this->session->set_userdata('applied_coupon', '');
+				$this->session->set_userdata('payment_details', '');
+				$this->session->set_userdata('applied_coupon', '');
+				$this->session->set_userdata('secondaryPayment', 0);
 
 				$this->session->set_flashdata('flash_message', get_phrase('your_document_will_be_reviewd'));
 			else :
@@ -156,16 +159,16 @@ class Offline_payment_model extends CI_Model
 	public function settings()
 	{
 		$languages = $this->crud_model->get_all_languages();
-        foreach ($languages as $language){
+		foreach ($languages as $language) {
 			$offtext[$language] = htmlspecialchars($this->input->post('bank_information', false)[$language]);
 		}
 		$data['value'] = json_encode($offtext);
-		if($this->db->get_where('settings', ['key' => 'offline_bank_information'])->num_rows() > 0){
-        	$this->db->where('key', 'offline_bank_information');
-        	$this->db->update('settings', $data);
-		}else{
+		if ($this->db->get_where('settings', ['key' => 'offline_bank_information'])->num_rows() > 0) {
+			$this->db->where('key', 'offline_bank_information');
+			$this->db->update('settings', $data);
+		} else {
 			$data['key'] = 'offline_bank_information';
-        	$this->db->insert('settings', $data);
+			$this->db->insert('settings', $data);
 		}
 	}
 }
